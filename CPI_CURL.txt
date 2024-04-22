@@ -1,0 +1,31 @@
+
+
+#Signup through CURL: (Method: POST)
+*Run this command in your prompt shell, provide the required details to get yourself registered for data retrival.
+
+curl -H "accept: */*" -H "Content-Type: application/json" -X POST 10.24.89.9/api/users/userSignup -d "{\"username\": \"YOUR USER NAME\", \"gender\": \"GENDER\", \"password\": \"YOUR PASSKEY\", \"organization\": \"YOUR ORGANIZATION\", \"purpose\": \"YOUR PURPOSE\"}"
+
+
+
+
+#Login through Api: (Method: POST)
+*Run this command in your prompt shell, provide the Email and Password to get yourself a token value that can be used to acess all the records from API.
+
+curl -H "accept: */*" -H "Content-Type: application/json" -X POST 10.24.89.9/api/login -d “{\"username\": \"YOUR USER NAME\", \"password\": \"YOUR PASSKEY\"}"
+
+
+#Data retrival: (Method: GET)
+Consumer Price Index and Inflation (State Level)
+
+*Run this command in your prompt shell, provide the Email and Password to get yourself a token value that can be used to acess all the records from API.
+* This command is made with some assumed parameters you can pass any parameter and its value(Refer to MetaData to know all the relevant data values possible)
+
+curl -X "GET" "http://10.24.89.9/api/cpi/getCPIIndex?Series=Current_series_2012&Format=CSV" --header "authorization: TOKEN VALUE COPIED FROM LOGIN"
+
+
+Consumer Price Index and Inflation (item Level)
+
+*Run this command in your prompt shell, provide the Email and Password to get yourself a token value that can be used to acess all the records from API.
+* This command is made with some assumed parameters you can pass any parameter and its value(Refer to MetaData to know all the relevant data values possible)
+
+curl -X "GET" "http://10.24.89.9/api/cpi/getCPIItem?Year=2015Item=1.1.01.1.1.01.P&Format=CSV" --header "authorization: TOKEN VALUE COPIED FROM LOGIN"
