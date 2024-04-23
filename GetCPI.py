@@ -1,17 +1,31 @@
-""" How to Use /
+Usage="""
+How to Use /
+
+
 Call the script file and pass all the parameters in double qoutes and assign value by (:) and seprated values by comma (,) and multiple values 
 seprated also by comma(,) 
-for e.g. python GetCPI.py "token:TOKEN VALUE COPIED FFROM LOGIN.PY, Year:2012,2014, Month:2,1"   
+for e.g. 
+
+python GetCPI.py "token:TOKEN VALUE COPIED FFROM LOGIN.PY, Year:2012,2014, Month:2,1"   
+
+
   *Refer to metadata to know the exact parameter names and values
+ 
+ 
  """
 
 
 
-
+import pprint
 
 
 def A_agrs():
     import sys
+    if len(sys.argv)==1:
+        global u_sw 
+        u_sw = 1
+        print(Usage)
+        return Usage
     index_param=['token','Series','Year','Month','State_code','Group_code','Item', 'Subgroup_code','Sector','Format']
     arg=str(sys.argv).split(",")
     given_p={}
@@ -21,8 +35,7 @@ def A_agrs():
             arg_name,arg_val=arg[i].split(":")
             if len(arg)==2:
                 arg_name=(arg[1].split(":")[0][2:])
-                arg_val=(arg[1].split(":")[1][:-2])
-                
+                arg_val=(arg[1].split(":")[1][:-2])    
             elif (i==1):
                 arg_name=(arg[1].split(":")[0][2:])
                 arg_val=(arg[1].split(":")[1])
@@ -84,7 +97,7 @@ def GetDataIndex(token,Series= "Current_Series_2012",Year="",Month="", State_cod
         url=(f'http://10.24.89.9/api/cpi/getCPIIndex?Series={Series}&{Year}{Month}{State_code}{Group_code}{Sector}Format={Format}')
         print(f'URL: {url} ')
         if (Format=="JSON"):
-            print(datafromtoken(url,token).json()["data"])
+            pprint.pprint(datafromtoken(url,token).json()["data"])
             return datafromtoken(url,token).json()["data"]
         elif(Format=="CSV"):
             print(datafromtoken(url,token).text)
@@ -118,13 +131,22 @@ def GetDataItem(token,Year="",Month="",Item="",Format="JSON"):
 
 
 
+"""Either run the script on shell and pass all the agruments in shell or hardcode your values here  """
+
+
 
 Series= "Current_Series_2012"
 Year= Month= State_code= Group_code= Subgroup_code=Sector=Item=""
 Format="CSV"
 token=""
+u_sw=0
 A_agrs()
-if Item!="":
-    GetDataItem(token,Year,Month,Item,Format)
-else:
-    GetDataIndex(token,Series,Year,Month, State_code,Group_code, Subgroup_code,Sector,Format)
+if u_sw==0:
+
+    print("Yes")
+    if Item!="":
+
+        GetDataItem(token,Year,Month,Item,Format)
+    else:
+
+        GetDataIndex(token,Series,Year,Month, State_code,Group_code, Subgroup_code,Sector,Format)

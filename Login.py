@@ -1,10 +1,16 @@
-""" How to Use /
+Usage=""" 
+How to Use /
+
+
 Call the script file and pass all the pcredentials in double qoutes and assign value by (:) and seprated values by comma (,).
-for e.g. Login.py "username:USERNAME, password:XYZ" 
+for e.g. 
+Login.py "username:USERNAME, password:XYZ" 
+
+
  """
 
 
-
+import sys
 def login_agrs():
     import sys
     try:
@@ -39,6 +45,8 @@ def gettoken(username,password):
     except:
         print("Please enter and check all credentials or check the server adress")
             # return response
-username,password=login_agrs()
-login_agrs()
-token_api=gettoken(username,password)
+if len(sys.argv)==1:
+    print(Usage)
+else:
+    username,password=login_agrs()
+    token_api=gettoken(username,password)
